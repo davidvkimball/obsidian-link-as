@@ -1,5 +1,0 @@
-/* Muted secondary path line under each note title in the picker. */
-.link-as-suggestion-path {
-	color: var(--text-muted);
-	font-size: var(--font-ui-smaller);
-}

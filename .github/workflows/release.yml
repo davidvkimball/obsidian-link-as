@@ -51,22 +51,35 @@ jobs:
         id: version
         run: echo "version=$(jq -r .version manifest.json)" >> "$GITHUB_OUTPUT"
 
+      # Collect the release assets that actually exist. main.js and manifest.json
+      # are always present; styles.css is optional, so a plugin that needs no
+      # stylesheet doesn't have to ship an empty one just to satisfy the release.
+      - name: Collect release assets
+        id: assets
+        run: |
+          FILES="main.js manifest.json"
+          [ -f styles.css ] && FILES="$FILES styles.css"
+          echo "list=$FILES" >> "$GITHUB_OUTPUT"
+          {
+            echo "paths<<EOF"
+            for f in $FILES; do echo "$f"; done
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
       - name: Attest build provenance
         uses: actions/attest-build-provenance@v2
         with:
-          subject-path: |
-            main.js
-            styles.css
-            manifest.json
+          subject-path: ${{ steps.assets.outputs.paths }}
 
       - name: Create or update release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VERSION: ${{ steps.version.outputs.version }}
+          ASSETS: ${{ steps.assets.outputs.list }}
         run: |
           if gh release view "$VERSION" >/dev/null 2>&1; then
             echo "Release $VERSION already exists; re-uploading assets"
-            gh release upload "$VERSION" main.js styles.css manifest.json --clobber
+            gh release upload "$VERSION" $ASSETS --clobber
           else
             # Build release notes from the latest commit message, followed by a
             # Full Changelog compare link against the previous tag (when one
@@ -83,5 +96,5 @@ jobs:
             gh release create "$VERSION" \
               --title="$VERSION" \
               --notes "$NOTES" \
-              main.js styles.css manifest.json
+              $ASSETS
           fi
