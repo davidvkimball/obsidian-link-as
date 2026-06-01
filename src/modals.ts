@@ -26,8 +26,7 @@ export class NotePickerModal extends FuzzySuggestModal<TFile> {
 	renderSuggestion(match: FuzzyMatch<TFile>, el: HTMLElement): void {
 		const file = match.item;
 		el.createDiv({ text: this.getTitle(file) });
-		const pathEl = el.createDiv({ text: file.path });
-		pathEl.setCssStyles({ color: 'var(--text-muted)', fontSize: 'var(--font-ui-smaller)' });
+		el.createDiv({ text: file.path, cls: 'link-as-suggestion-path' });
 	}
 
 	onChooseItem(file: TFile): void {
