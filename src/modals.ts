@@ -9,6 +9,7 @@ export class NotePickerModal extends FuzzySuggestModal<TFile> {
 		app: App,
 		private readonly onChoose: (file: TFile) => void,
 		private readonly getTitle: (file: TFile) => string,
+		private readonly showPath: boolean,
 	) {
 		super(app);
 		this.setPlaceholder('Pick a note to link to…');
@@ -26,8 +27,10 @@ export class NotePickerModal extends FuzzySuggestModal<TFile> {
 	renderSuggestion(match: FuzzyMatch<TFile>, el: HTMLElement): void {
 		const file = match.item;
 		el.createDiv({ text: this.getTitle(file) });
-		const pathEl = el.createDiv({ text: file.path });
-		pathEl.setCssStyles({ color: 'var(--text-muted)', fontSize: 'var(--font-ui-smaller)' });
+		if (this.showPath) {
+			const pathEl = el.createDiv({ text: file.path });
+			pathEl.setCssStyles({ color: 'var(--text-muted)', fontSize: 'var(--font-ui-smaller)' });
+		}
 	}
 
 	onChooseItem(file: TFile): void {

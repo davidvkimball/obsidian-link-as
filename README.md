@@ -12,17 +12,16 @@ Part of the [Vault CMS](https://github.com/davidvkimball/vault-cms) project.
 
 - Link a text selection to any note, keeping the selection as the inline display text.
 - Or run it with nothing selected and type the display text (or leave it empty to use the note's title).
-- Never writes to the target note's properties — inline links only.
+- Never writes to the target note's properties (inline links only).
 - Respects your link format (wikilink or Markdown, shortest path) and omits a redundant alias when it just repeats the file name.
 - Property Over File Name aware: the note picker lists notes by their title property.
 
 ## Installation
 
-### BRAT
+### Community Plugins Search
 
-1. Install the [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin and enable it.
-2. In BRAT, choose **Add beta plugin** and enter `davidvkimball/obsidian-link-as`.
-3. In Obsidian, go to Settings → Community plugins and enable "Link As."
+1. In Obsidian, go to Settings → Community plugins (enable it if you haven't already).
+2. Search for [Link As](https://obsidian.md/plugins?id=link-as) and click Install, then Enable.
 
 ### Manual
 
@@ -34,8 +33,8 @@ Part of the [Vault CMS](https://github.com/davidvkimball/vault-cms) project.
 
 Run the command **Link As: link text to a note** (suggested hotkey: `Ctrl/Cmd+Shift+K`).
 
-- **With text selected** — your selection becomes the display text. Pick a note and it becomes `[[note|your selection]]`.
-- **With nothing selected** — type the display text (or leave it empty to use the note's title), then pick a note.
+- **With text selected**: your selection becomes the display text. Pick a note and it becomes `[[note|your selection]]`.
+- **With nothing selected**: type the display text (or leave it empty to use the note's title), then pick a note.
 
 Nothing is written to the target note's properties. If [Property Over File Name](https://github.com/davidvkimball/obsidian-property-over-file-name) is installed, the picker shows notes by their title property, and an empty display falls back to that title.
 

@@ -1,5 +1,6 @@
 import { Editor, MarkdownFileInfo, Plugin, TFile } from 'obsidian';
 import { DisplayTextModal, NotePickerModal } from './modals';
+import { DEFAULT_SETTINGS, LinkAsSettings, LinkAsSettingTab } from './settings';
 
 // Property Over File Name plugin id, read (optionally) so the note picker and
 // the fallback display text use a note's title property instead of its filename.
@@ -14,12 +15,26 @@ interface PluginsApi {
 }
 
 export default class LinkAsPlugin extends Plugin {
-	onload(): void {
+	settings: LinkAsSettings;
+
+	async onload(): Promise<void> {
+		await this.loadSettings();
+
 		this.addCommand({
 			id: 'link-text-to-note',
 			name: 'Link text to a note',
 			editorCallback: (editor, view) => this.startLinkFlow(editor, view),
 		});
+
+		this.addSettingTab(new LinkAsSettingTab(this.app, this));
+	}
+
+	async loadSettings(): Promise<void> {
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, (await this.loadData()) as Partial<LinkAsSettings>);
+	}
+
+	async saveSettings(): Promise<void> {
+		await this.saveData(this.settings);
 	}
 
 	private startLinkFlow(editor: Editor, view: MarkdownFileInfo): void {
@@ -41,6 +56,7 @@ export default class LinkAsPlugin extends Plugin {
 			this.app,
 			(file) => this.insertLink(editor, view, file, displayText),
 			(file) => this.getNoteTitle(file),
+			this.settings.showPathInPicker,
 		).open();
 	}
 
