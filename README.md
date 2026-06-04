@@ -21,7 +21,7 @@ Part of the [Vault CMS](https://github.com/davidvkimball/vault-cms) project.
 ### Community Plugins Search
 
 1. In Obsidian, go to Settings → Community plugins (enable it if you haven't already).
-2. Search for [Link As](https://obsidian.md/plugins?id=link-as) and click Install, then Enable.
+2. Search for **Link As david** (searching just "Link As" buries it in the results), then click Install and Enable. You can also open it directly with [this link](https://obsidian.md/plugins?id=link-as).
 
 ### Manual
 
