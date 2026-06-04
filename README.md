@@ -4,6 +4,9 @@ Link selected text to any note, keeping it as the display text.
 
 Obsidian can wrap a selection in `[[ ]]`, but it uses your text as the *search target*, not as the display. Link As lets you keep your wording and point it at whatever note you choose, without writing anything to the target note. Particularly helpful alongside [Property Over File Name](https://github.com/davidvkimball/obsidian-property-over-file-name), which lets the note picker show titles instead of file names.
 
+![Link As plugin demonstration](https://github.com/user-attachments/assets/50a74639-fbcd-43d0-b17e-94253bc6118f)
+
+
 ## Made for Vault CMS
 
 Part of the [Vault CMS](https://github.com/davidvkimball/vault-cms) project.
